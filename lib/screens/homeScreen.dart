@@ -2,6 +2,8 @@ import 'package:delivery/const/colors.dart';
 import 'package:delivery/utils/helper.dart';
 import 'package:flutter/material.dart';
 
+import '../utils/custom_button.dart';
+
 class HomeScreen extends StatelessWidget {
   static const routeName = "/HomeScreen";
 
@@ -9,6 +11,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -163,32 +166,83 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              SizedBox(
-                height: 250,
-                width: double.infinity,
-                child: Column(
-                  children: [
-                    SizedBox(
-                        height: 200,
-                        width: double.infinity,
-                        child: Image.asset(
-                          Helper.getAssetName("pizza.jpg", "images"),
-                          fit: BoxFit.cover,
-                        )),
-                  ],
-                ),
-              ),
-               Padding(
+              PopularDishes(),
+              PopularDishes(),
+              PopularDishes(),
+              PopularDishes(),
+              Padding(
                 padding: EdgeInsets.symmetric(
-                  horizontal: 20,
+                  horizontal: 5,
                 ),
                 child: Column(
                   children: [
                     Row(
                       children: [
-                      Text("Избранное", style: Helper.getTheme(context).headline5,),
+                        Text(
+                          "Избранное",
+                          style: Helper.getTheme(context).headline5,
+                        ),
                       ],
-                    )
+                    ),
+                    Container(
+                      width: double.infinity,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            CategoryFavourites(
+                              image: Image.asset(
+                                Helper.getAssetName("burger.jpg", "images"),
+                                fit: BoxFit.cover,
+                              ),
+                              name: "Бургер",
+                              price: "Цена",
+                              count: "350",
+                              text: "P",
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            CategoryFavourites(
+                              image: Image.asset(
+                                Helper.getAssetName("burger.jpg", "images"),
+                                fit: BoxFit.cover,
+                              ),
+                              name: "Бургер",
+                              price: "Цена",
+                              count: "350",
+                              text: "P",
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            CategoryFavourites(
+                              image: Image.asset(
+                                Helper.getAssetName("burger.jpg", "images"),
+                                fit: BoxFit.cover,
+                              ),
+                              name: "Бургер",
+                              price: "Цена",
+                              count: "350",
+                              text: "P",
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            CategoryFavourites(
+                              image: Image.asset(
+                                Helper.getAssetName("burger.jpg", "images"),
+                                fit: BoxFit.cover,
+                              ),
+                              name: "Бургер",
+                              price: "Цена",
+                              count: "350",
+                              text: "P",
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -231,6 +285,218 @@ class CategoryCard extends StatelessWidget {
               ),
         ),
       ],
+    );
+  }
+}
+
+class CategoryFavourites extends StatelessWidget {
+  CategoryFavourites({
+    super.key,
+    required Image image,
+    required String name, required this.price, required this.count, required this.text,
+  })  : _image = image,
+        _name = name;
+
+  final Image _image;
+  final String _name;
+  final String price;
+  final String count;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: SizedBox(
+            width: 300,
+            height: 200,
+            child: _image,
+          ),
+        ),SizedBox(height: 10,),
+        Text(
+          _name,
+          style: Helper.getTheme(context).headline5!.copyWith(
+            color: AppColor.primary,
+            fontSize: 16,
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+          Text(
+            price,
+            style: Helper.getTheme(context).headline5!.copyWith(
+              color: AppColor.primary,
+              fontSize: 16,
+            ),
+          ),
+          Text(
+            count,
+            style: Helper.getTheme(context).headline5!.copyWith(
+              color: AppColor.primary,
+              fontSize: 16,
+            ),
+          ),
+          Text(
+            text,
+            style: Helper.getTheme(context).headline5!.copyWith(
+              color: AppColor.primary,
+              fontSize: 16,
+            ),
+          ),
+       Row(
+         children: [
+           SizedBox(
+             width: 100,
+             child: CustomButton(
+               color: Colors.red,
+               icon: "",
+               press: () {},
+             ),
+           ),
+         ],
+       ),
+        ],),
+      ],
+    );
+  }
+}
+
+
+class PopularDishes extends StatefulWidget {
+  const PopularDishes({super.key});
+
+  @override
+  State<PopularDishes> createState() => _PopularDishesState();
+}
+
+class _PopularDishesState extends State<PopularDishes> {
+
+  @override
+  Widget build(BuildContext context) {
+
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+
+    double side1 = height * 0.06;
+    double side2 = width * 0.90;
+
+    double side3 = height * 0.06;
+    double side4 = width * 0.30;
+
+    return  SizedBox(
+      height: 400,
+      width: double.infinity,
+      child: Column(
+        children: [
+          SizedBox(
+            height: 250,
+            width: double.infinity,
+            child: Image.asset(
+              Helper.getAssetName("pizza.jpg", "images"),
+              fit: BoxFit.cover,
+            ),
+          ),
+          Stack(children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.star,
+                    color: Colors.red,
+                    size: 20,
+                  ),
+                  Icon(
+                    Icons.star,
+                    color: Colors.red,
+                    size: 20,
+                  ),
+                  Icon(
+                    Icons.star,
+                    color: Colors.red,
+                    size: 20,
+                  ),
+                  Icon(
+                    Icons.star,
+                    color: Colors.red,
+                    size: 20,
+                  ),
+                  Icon(
+                    Icons.star,
+                    color: Colors.red,
+                    size: 20,
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 30.0, left: 10),
+              child: Row(
+                children: [
+                  Text(
+                    "Пепперони",
+                    style: TextStyle(
+                        color: Colors.black, fontSize: 20),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              height: height * 0.17,
+            ),
+            Positioned(
+              top: height * 0.09,
+              left: width * 0.03,
+              child: Container(
+                height: side1,
+                width: side2,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children:  [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 5.0),
+                      child: Text(
+                        "Цена:",
+                        style: TextStyle(
+                            color: Colors.black, fontSize: 20),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 5.0),
+                      child: Text(
+                        "500",
+                        style: TextStyle(
+                            color: Colors.black, fontSize: 20, fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                    Text(
+                      "Pуб.",
+                      style: TextStyle(
+                          color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Positioned(
+              top: height * 0.080,
+              left: width * 0.68,
+              child: Container(
+                height: side3,
+                width: side4,
+                child: CustomButton(
+                  color: Colors.red,
+                  icon: "",
+                  press: () {},
+                ),
+              ),
+            ),
+          ],)
+        ],
+      ),
     );
   }
 }
